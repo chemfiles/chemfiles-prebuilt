@@ -13,9 +13,9 @@ RUST_TRIPLES = Dict(
     "x86_64-linux-musl" => "x86_64-unknown-linux-musl",
     "aarch64-linux-musl" => "aarch64-unknown-linux-musl" ,
     "armv7l-linux-musleabihf" => "armv7-unknown-linux-musleabihf",
-    "x86_64-apple-darwin14" => "x86_64-apple-darwin",
-    "aarch64-apple-darwin14" => "aarch64-apple-darwin",
-    "x86_64-unknown-freebsd11.1" => "x86_64-unknown-freebsd",
+    "x86_64-apple-darwin" => "x86_64-apple-darwin",
+    "aarch64-apple-darwin" => "aarch64-apple-darwin",
+    "x86_64-unknown-freebsd" => "x86_64-unknown-freebsd",
     "i686-w64-mingw32" => "i686-pc-windows-gnu",
     "x86_64-w64-mingw32" => "x86_64-pc-windows-gnu",
 )
