@@ -5,13 +5,16 @@ using BinaryBuilder, Pkg
 include("config.jl")
 
 # Collection of sources required to complete build
-sources = [ArchiveSource(
-    "https://github.com/chemfiles/chemfiles/archive/$version.tar.gz", chemfiles_sha256
-)]
+sources = [
+    ArchiveSource("https://github.com/chemfiles/chemfiles/archive/$version.tar.gz", chemfiles_sha256),
+    DirectorySource("./patches"),
+]
 
 # Bash recipe for building across all platforms
 script = """
 cd \${WORKSPACE}/srcdir/chemfiles-*/
+atomic_patch -p1 ${WORKSPACE}/srcdir/arm-musl-endian-detect.patch
+
 mkdir build && cd build
 cmake -DCMAKE_INSTALL_PREFIX=\${prefix} \\
       -DCMAKE_TOOLCHAIN_FILE=\${CMAKE_TARGET_TOOLCHAIN} \\

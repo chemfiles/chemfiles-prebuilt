@@ -30,6 +30,11 @@ for path in readdir("products/")
 
     julia_triple = path[length(prefix) + 1:end - length(suffix)]
 
+    if startswith(julia_triple, "armv6l")
+        # rust only provides arm7 targets
+        continue
+    end
+
     fd = open(joinpath("products/", path))
     sha = bytes2hex(sha256(fd))
     close(fd)
@@ -38,7 +43,7 @@ for path in readdir("products/")
 end
 
 open("prebuilt.rs", "w") do fd
-    println(fd, "/// Get the julia triple & sha256 corresponding to the prebuilt libchemfiles")
+    println(fd, "/// Get the julia triple & sha256 corresponding to the prebuilt chemfiles v$version")
     println(fd, "/// for a given rust triple, if it exists")
     println(fd, "pub fn get_prebuilt_info(target: &str) -> Option<(&'static str, &'static str)> {")
     println(fd, "    match target {")
