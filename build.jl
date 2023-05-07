@@ -6,14 +6,12 @@ include("config.jl")
 
 # Collection of sources required to complete build
 sources = [
-    ArchiveSource("https://github.com/chemfiles/chemfiles/archive/$version.tar.gz", chemfiles_sha256),
-    DirectorySource("./patches"),
+    ArchiveSource("https://github.com/chemfiles/chemfiles/releases/download/$version/chemfiles-$version.tar.gz", chemfiles_sha256),
 ]
 
 # Bash recipe for building across all platforms
 script = """
 cd \${WORKSPACE}/srcdir/chemfiles-*/
-atomic_patch -p1 ${WORKSPACE}/srcdir/arm-musl-endian-detect.patch
 
 mkdir build && cd build
 cmake -DCMAKE_INSTALL_PREFIX=\${prefix} \\
