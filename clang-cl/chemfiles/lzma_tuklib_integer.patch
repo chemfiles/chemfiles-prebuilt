@@ -1,0 +1,12 @@
+--- external/lzma/common/tuklib_integer.h	2023-08-24 13:33:46
++++ external/lzma/common/tuklib_integer.h	2023-08-24 13:33:15
+@@ -43,6 +43,9 @@
+
+ #include "tuklib_common.h"
+
++#if defined(_MSC_VER) && _MSC_VER >= 1400
++#include <intrin.h>
++#else
+
+ ////////////////////////////////////////
+ // Operating system specific features //
