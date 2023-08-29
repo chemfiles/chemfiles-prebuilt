@@ -18,6 +18,8 @@ RUST_TRIPLES = Dict(
     "x86_64-unknown-freebsd" => "x86_64-unknown-freebsd",
     "i686-w64-mingw32" => "i686-pc-windows-gnu",
     "x86_64-w64-mingw32" => "x86_64-pc-windows-gnu",
+    # not an actual Julia triple, so we use the Rust triple on both sides
+    "x86_64-pc-windows-msvc" => "x86_64-pc-windows-msvc",
 )
 
 prebuilt = []
@@ -48,7 +50,10 @@ open("prebuilt.rs", "w") do fd
     println(fd, "pub fn get_prebuilt_info(target: &str) -> Option<(&'static str, &'static str)> {")
     println(fd, "    match target {")
     for (rust_triple, julia_triple, sha) in prebuilt
-        println(fd, "        \"$rust_triple\" => Some((\"$julia_triple\", \"$sha\")),")
+        println(fd, "        \"$rust_triple\" => Some((")
+        println(fd, "            \"$julia_triple\",")
+        println(fd, "            \"$sha\",")
+        println(fd, "        )),")
     end
     println(fd, "        _ => None,")
     println(fd, "    }")
